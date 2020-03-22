@@ -72,7 +72,7 @@ public class CrystalAura extends Module {
                 .orElse(null);
         if (explode.getValue() && crystal != null && mc.player.getDistance(crystal) <= range.getValue()) {
             //Added delay to stop ncp from flagging "hitting too fast"
-            if (((System.nanoTime() / 1000000) - systemTime) >= 250) {
+            if (((System.nanoTime() / 1000000) - systemTime) >= 400) {
                 if (antiWeakness.getValue() && mc.player.isPotionActive(MobEffects.WEAKNESS)) {
                     if (!isAttacking) {
                         // save initial player hand
@@ -188,7 +188,9 @@ public class CrystalAura extends Module {
             if (result == null || result.sideHit == null) {
                 f = EnumFacing.UP;
             } else {
-                f = result.sideHit;
+		if (((System.nanoTime() / 10000000 ) - systemTime) >= 400){
+                	f = result.sideHit;
+		}
             }
             // return after we did an autoswitch
             if (switchCooldown) {
